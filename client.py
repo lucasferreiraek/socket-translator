@@ -3,7 +3,7 @@ import json
 
 # Setting up connection to the server
 server_host = 'localhost'
-server_port = 5000
+server_port = 50001
 
 # Creating a socket and estabilishing connection
 client_tcp = socket(AF_INET, SOCK_STREAM)
@@ -21,12 +21,12 @@ while count < 3:
     dic[text[0]] = text[1]
     count += 1
 
-    message = json.dumps(dic).encode()
-    client_tcp.send(message)
+message = json.dumps(dic).encode()
+client_tcp.send(message)
 
-    response = client_tcp.recv(1024).decode()
+response = client_tcp.recv(1024).decode()
 
-    print()
-    print("Translated: " + response)
+print()
+print("Translated: " + response)
 
-    client_tcp.close()
+client_tcp.close()

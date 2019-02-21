@@ -17,7 +17,7 @@ def my_translator(text, src_lang, dest_lang):
 
 # Setting up the server
 my_host = ''
-my_port = 5000
+my_port = 50001
 
 # This is a TCP/IP server
 server_tcp = socket(AF_INET, SOCK_STREAM)
