@@ -10,23 +10,37 @@ client_tcp = socket(AF_INET, SOCK_STREAM)
 destination = (server_host, server_port)
 client_tcp.connect(destination)
 
-count = 0
-dic = {}
+msg = {}
+keys = ['text', 'src_lang', 'dest_lang']
 
 # main
-print("Type the word what you may translate")
-print("the source language and the destination language")
-while count < 3:
-    text = input().split()
-    dic[text[0]] = text[1]
-    count += 1
+while True:
+    print("Welcome to the Socket Translator")
+    print("To translate some word, type 'y'")
+    print("To exit type any button")
+    code = input()
+    
+    if (code == 'y'):
+        print("The languages are indentified by abbreviations:")
+        print("pt = portuguese; en = english; japanese = jp, es = spanish")
+        print("==============================================================")
+        print("In this following sequence:")
+        print("1) Type the word what you wish translate")
+        print("2) Type the source language")
+        print("3) Type the destination language")
 
-message = json.dumps(dic).encode()
-client_tcp.send(message)
+        msg_in = input().split()
+        for key, word in zip(keys, msg_in):
+            msg[key] = word
 
-response = client_tcp.recv(1024).decode()
+        message = json.dumps(msg).encode()
+        client_tcp.send(message)
 
-print()
-print("Translated: " + response)
+        response = client_tcp.recv(1024).decode()
 
-client_tcp.close()
+        print()
+        print("Translated: " + response + '\n')
+    else:
+        client_tcp.close()
+        print("Falou!!!")
+        break
